@@ -3,8 +3,9 @@ import VideoCard from './components/videoCard';
 import { videoDataType } from './types';
 
 function App() {
-  const keyword = 'piano';
-  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${keyword}&type=video&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+  const keyword = 'charlie puth';
+  const [pageToken, setPageToken] = useState('');
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${keyword}&type=video&maxResults=1&order=viewCount&pageToken=${pageToken}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
   const [listItems, setListItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const fetchData = () => {
@@ -14,7 +15,7 @@ function App() {
       .then((data) => {
         setLoading(false);
         setListItems(data.items);
-        console.log(data);
+        setPageToken(data.nextPageToken);
       });
   };
 
@@ -25,7 +26,11 @@ function App() {
         <div>loading...</div>
       ) : (
         listItems.map((data: videoDataType) => (
-          <VideoCard key={data.id.videoId} data={data} />
+          <VideoCard
+            key={data.id.videoId}
+            data={data}
+            onEnd={() => fetchData()}
+          />
         ))
       )}
     </div>
