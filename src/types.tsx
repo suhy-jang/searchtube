@@ -2,8 +2,14 @@ export interface videoDataType {
   id: {
     videoId: string;
   };
-  snippet: {
-    title: string;
-    channelTitle: string;
+}
+
+export interface YoutubeData {
+  items: videoDataType[];
+  nextPageToken: string;
+  error: {
+    errors: {
+      reason: string;
+    }[];
   };
 }

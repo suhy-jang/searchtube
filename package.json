@@ -5,10 +5,12 @@
   "dependencies": {
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
     "autoprefixer": "^9.8.6",
     "postcss-cli": "^7.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-youtube": "^7.11.3",
     "tailwindcss": "^1.7.2",
@@ -16,8 +18,8 @@
   },
   "scripts": {
     "build:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
-    "watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
-    "start": "npm run watch:css && react-scripts start",
+    "start:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
+    "start": "npm run start:css && react-scripts start",
     "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
