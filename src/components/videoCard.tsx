@@ -5,6 +5,7 @@ import { useLocation, useHistory, Redirect } from 'react-router-dom';
 
 interface LocationState {
   items: videoDataType[];
+  keyword: string;
   nextPageToken: string;
 }
 
@@ -30,12 +31,12 @@ const VideoCard = () => {
       }
     }
 
-    const nextPageToken = location.state ? location.state.nextPageToken : '';
-
-    history.push({
-      pathname: '/',
-      state: { nextPageToken },
-    });
+    if (location.state) {
+      history.push({
+        pathname: '/',
+        state: location.state,
+      });
+    }
   };
 
   if (!location.search || !location.state) {
