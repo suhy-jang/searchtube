@@ -31,7 +31,10 @@ const VideoSearch = () => {
       .then((res) => res.json())
       .then((data) => {
         const { items, nextPageToken, error }: YoutubeData = data;
-        if (!items && error) return setError(error.errors[0].reason);
+        if (!items && error)
+          return setError(
+            `${error.errors[0].reason}, try it after 24hours later!`
+          );
         if (items.length === 0) return setNotFound(true);
         history.push({
           pathname: '/video',
@@ -83,11 +86,7 @@ const VideoSearch = () => {
           No Video Found
         </div>
       )}
-      {error && (
-        <div className="text-gray-200 text-center">
-          {error}, try it after 24hours later!
-        </div>
-      )}
+      {error && <div className="text-gray-200 text-center">{error}</div>}
     </div>
   );
 };

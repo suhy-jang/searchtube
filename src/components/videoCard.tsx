@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { videoDataType } from '../types';
 import YouTube from 'react-youtube';
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 interface LocationState {
   items: videoDataType[];
@@ -39,10 +40,6 @@ const VideoCard = () => {
     }
   };
 
-  if (!location.search || !location.state) {
-    return <Redirect to="/" />;
-  }
-
   const opts = {
     playerVars: {
       autoplay: 1 as const,
@@ -50,19 +47,24 @@ const VideoCard = () => {
     },
   };
 
+  if (!location.search || !location.state || !currItem.data) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <>
-      {currItem.data && (
-        <YouTube
-          videoId={currItem.data.id.videoId}
-          id={currItem.data.id.videoId}
-          className={`appearance-none border-0 absolute top-0 left-0 w-screen h-screen`}
-          containerClassName={'bg-blue-500'}
-          opts={opts}
-          onReady={(e) => e.target.playVideo()}
-          onEnd={onEnd}
-        />
-      )}
+      <Helmet>
+        <title>SearchTube | {location.state.keyword}</title>
+      </Helmet>
+      <YouTube
+        videoId={currItem.data.id.videoId}
+        id={currItem.data.id.videoId}
+        className={`appearance-none border-0 absolute top-0 left-0 w-screen h-screen`}
+        containerClassName={'bg-blue-500'}
+        opts={opts}
+        onReady={(e) => e.target.playVideo()}
+        onEnd={onEnd}
+      />
     </>
   );
 };
