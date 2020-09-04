@@ -28,5 +28,5 @@ $ npm run start
 
 The website is live at [netlify-app](https://suhy-searchtube.netlify.app/)
 
-- Version: 1.0.0
+- Version: 1.1.0
 - Author: Suhyeon Jang
